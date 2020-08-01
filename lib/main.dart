@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,27 +29,33 @@ class MyApp extends StatelessWidget {
             child: RaisedButton(
                 child: Text("Sonucu Gor"),
                 onPressed: () {
-                  int not = 50;
-                  String mesaj = "";
-                  if (not >= 50) {
-                    mesaj = "Gecti";
-                  } else if (not >= 40) {
-                    mesaj = "Bute kaldi";
-                  } else {
-                    mesaj = "kaldi";
-                  }
-                  var alert = AlertDialog(
-                    title: Text("Sinav Sonucu"),
-                    content: Text(mesaj),
-                  );
-
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => alert);
+                  var mesaj = sinavHesapla(50);
+                  mesajGoster(context, mesaj);
                 }),
           ),
         ],
       ),
     );
+  }
+
+  String sinavHesapla(int not) {
+    String mesaj = "";
+    if (not >= 50) {
+      mesaj = "Gecti";
+    } else if (not >= 40) {
+      mesaj = "Bute kaldi";
+    } else {
+      mesaj = "kaldi";
+    }
+    return mesaj;
+  }
+
+  void mesajGoster(BuildContext context, String mesaj) {
+    var alert = AlertDialog(
+      title: Text("Sinav Sonucu"),
+      content: Text(mesaj),
+    );
+
+    showDialog(context: context, builder: (BuildContext context) => alert);
   }
 }
