@@ -9,8 +9,16 @@ void main() {
 }
 
 // ignore: must_be_immutable
-class MyApp extends StatelessWidget {
-  String mesaj = "Öğrenci Takip Sistemi";
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String title = "Öğrenci Takip Sistemi";
+  String mesaj = "qwerty";
+  String seciliOgrenci = "abc";
+
   List<Student> students = [
     Student("Volkan", "Aktas", 25,
         "https://cdn.pixabay.com/photo/2020/06/12/12/34/bird-bath-5290285_960_720.jpg"),
@@ -19,12 +27,14 @@ class MyApp extends StatelessWidget {
     Student("Arif", "Dora", 45,
         "https://cdn.pixabay.com/photo/2020/06/12/12/34/bird-bath-5290285_960_720.jpg")
   ];
+
   var ogrenciler = ["Engin Demirog", "vOLKAN AKTAS ", "Ozlem Ezgi Sari "];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(mesaj),
+          title: Text(title),
         ),
         body: buildBody(context));
   }
@@ -72,12 +82,17 @@ class MyApp extends StatelessWidget {
                         " ]"),
                     trailing: buildStatusIcon(students[index].grade),
                     onTap: () {
-                      print(students[index].firstName +
-                          " " +
-                          students[index].lastName);
+                      setState(() {
+                        seciliOgrenci = students[index].firstName +
+                            " " +
+                            students[index].lastName;
+                      });
+
+                      print(seciliOgrenci);
                     },
                   );
                 })),
+        Text("Secili ogrenci : " + seciliOgrenci),
         Center(
           child: RaisedButton(
               child: Text("Sonucu Gor!!!!!!"),
