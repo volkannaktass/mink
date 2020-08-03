@@ -93,14 +93,76 @@ class _MyAppState extends State<MyApp> {
                   );
                 })),
         Text("Secili ogrenci : " + seciliOgrenci),
-        Center(
-          child: RaisedButton(
-              child: Text("Sonucu Gor!!!!!!"),
-              onPressed: () {
-                var mesaj = sinavHesapla(50);
-                mesajGoster(context, mesaj);
-              }),
+        Row(
+          children: <Widget>[
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: RaisedButton(
+                  color: Colors.greenAccent,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.add),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text("Yeni"),
+                    ],
+                  ),
+                  onPressed: () {
+                    var mesaj = sinavHesapla(50);
+                    mesajGoster(context, mesaj);
+                  }),
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: RaisedButton(
+                  color: Colors.amberAccent,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.update),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text("Güncelle"),
+                    ],
+                  ),
+                  onPressed: () {
+                    var mesaj = sinavHesapla(50);
+                    mesajGoster(context, mesaj);
+                  }),
+            ),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 1,
+              child: RaisedButton(
+                  color: Colors.redAccent,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.delete),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text("Sil"),
+                    ],
+                  ),
+                  onPressed: () {
+                    var mesaj = sinavHesapla(50);
+                    mesajGoster(context, mesaj);
+                  }),
+            )
+          ],
         ),
+
+        // Center(
+        //   child: RaisedButton(
+        //       child: Text("Sonucu Gor!!!!!!"),
+        //       onPressed: () {
+        //         var mesaj = sinavHesapla(50);
+        //         mesajGoster(context, mesaj);
+        //       }),
+        // ),
       ],
     );
   }
