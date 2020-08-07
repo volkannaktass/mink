@@ -1,18 +1,30 @@
 class Student {
+  int id;
   String firstName;
   String lastName;
   int grade;
   String picsUrl;
-  String status;
+  // ignore: unused_field
+  String _status;
+
+  Student.withId(
+      int id, String firstName, String lastName, int grade, String picsUrl) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.grade = grade;
+    this.picsUrl = picsUrl;
+    //this.status = 'Gecti';
+  }
 
   Student(String firstName, String lastName, int grade, String picsUrl) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.grade = grade;
     this.picsUrl = picsUrl;
-    this.status = 'Gecti';
   }
 
+  Student.withoutInfo();
   // String get getFirstName {
   //   return "OGR - " + this.firstName;
   // }

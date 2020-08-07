@@ -1,6 +1,7 @@
 import 'package:engindemirog/models/student.dart';
+import 'package:engindemirog/screens/student_add.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -17,18 +18,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String title = "Öğrenci Takip Sistemi";
   String mesaj = "qwerty";
-  String seciliOgrenci = "abc";
+  Student selectedStudent = Student.withId(0, "", "", 0, "");
 
   List<Student> students = [
-    Student("Volkan", "Aktas", 25,
+    Student.withId(1, "Volkan", "Aktas", 25,
         "https://cdn.pixabay.com/photo/2020/06/12/12/34/bird-bath-5290285_960_720.jpg"),
-    Student("Berk", "Yilmaz", 65,
+    Student.withId(2, "Berk", "Yilmaz", 65,
         "https://cdn.pixabay.com/photo/2020/06/12/12/34/bird-bath-5290285_960_720.jpg"),
-    Student("Arif", "Dora", 45,
+    Student.withId(3, "Arif", "Dora", 45,
         "https://cdn.pixabay.com/photo/2020/06/12/12/34/bird-bath-5290285_960_720.jpg")
   ];
 
-  var ogrenciler = ["Engin Demirog", "vOLKAN AKTAS ", "Ozlem Ezgi Sari "];
+  //var ogrenciler = ["Engin Demirog", "vOLKAN AKTAS ", "Ozlem Ezgi Sari "];
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +40,21 @@ class _MyAppState extends State<MyApp> {
         body: buildBody(context));
   }
 
-  String sinavHesapla(int not) {
-    String mesaj = "";
-    if (not >= 50) {
-      mesaj = "Gecti";
-    } else if (not >= 40) {
-      mesaj = "Bute kaldi";
-    } else {
-      mesaj = "kaldi";
-    }
-    return mesaj;
-  }
+  // String sinavHesapla(int not) {
+  //   String mesaj = "";
+  //   if (not >= 50) {
+  //     mesaj = "Gecti";
+  //   } else if (not >= 40) {
+  //     mesaj = "Bute kaldi";
+  //   } else {
+  //     mesaj = "kaldi";
+  //   }
+  //   return mesaj;
+  // }
 
   void mesajGoster(BuildContext context, String mesaj) {
     var alert = AlertDialog(
-      title: Text("Sinav Sonucu"),
+      title: Text("İşlem Sonucu"),
       content: Text(mesaj),
     );
 
@@ -83,16 +84,14 @@ class _MyAppState extends State<MyApp> {
                     trailing: buildStatusIcon(students[index].grade),
                     onTap: () {
                       setState(() {
-                        seciliOgrenci = students[index].firstName +
-                            " " +
-                            students[index].lastName;
+                        selectedStudent = students[index];
                       });
 
-                      print(seciliOgrenci);
+                      print(selectedStudent.firstName);
                     },
                   );
                 })),
-        Text("Secili ogrenci : " + seciliOgrenci),
+        Text("Secili ogrenci : " + selectedStudent.firstName),
         Row(
           children: <Widget>[
             Flexible(
@@ -110,8 +109,10 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                   onPressed: () {
-                    var mesaj = sinavHesapla(50);
-                    mesajGoster(context, mesaj);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => StudentAdd(students)));
                   }),
             ),
             Flexible(
@@ -129,7 +130,7 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                   onPressed: () {
-                    var mesaj = sinavHesapla(50);
+                    var mesaj = "Güncellendi";
                     mesajGoster(context, mesaj);
                   }),
             ),
@@ -148,7 +149,11 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                   onPressed: () {
-                    var mesaj = sinavHesapla(50);
+                    setState(() {
+                      students.remove(selectedStudent);
+                    });
+
+                    var mesaj = "Silindi : " + selectedStudent.firstName;
                     mesajGoster(context, mesaj);
                   }),
             )
