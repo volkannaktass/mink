@@ -1,5 +1,6 @@
 import 'package:engindemirog/models/student.dart';
 import 'package:engindemirog/screens/student_add.dart';
+import 'package:engindemirog/screens/student_edit.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/cupertino.dart';
 
@@ -130,8 +131,11 @@ class _MyAppState extends State<MyApp> {
                     ],
                   ),
                   onPressed: () {
-                    var mesaj = "Güncellendi";
-                    mesajGoster(context, mesaj);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                StudentEdit(selectedStudent)));
                   }),
             ),
             Flexible(
